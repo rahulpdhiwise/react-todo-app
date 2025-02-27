@@ -8,11 +8,32 @@ class StateProvider extends Component {
     constructor() {
         super();
         this.state = {
-            list: getAll(),
+            list: [],
             filter: FILTER_ALL,
             mode: MODE_NONE,
-            query: ''
+            query: '',
+            loading: true,
+            error: null
         };
+    }
+    
+    componentDidMount() {
+        this.fetchTodos();
+    }
+    
+    async fetchTodos() {
+        try {
+            const todos = await getAll();
+            this.setState({ 
+                list: todos,
+                loading: false
+            });
+        } catch (error) {
+            this.setState({ 
+                error: 'Failed to load todos',
+                loading: false
+            });
+        }
     }
 
     render() {
