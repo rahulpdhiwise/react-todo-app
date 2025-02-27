@@ -1,0 +1,7 @@
+
+> react-todo-app@0.1.0 start
+> react-scripts start
+
+(node:23928) [DEP0111] DeprecationWarning: Access to process.binding('http_parser') is deprecated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Something is already running on port 3000.
