@@ -1,26 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default function StarRating(props) {
-    const { rating, onRatingChange } = props;
+class StarRating extends Component {
+    constructor(props) {
+        super(props);
+        this.renderStar = this.renderStar.bind(this);
+    }
     
-    const renderStar = (starValue) => {
+    renderStar(starValue) {
+        const { rating, onRatingChange } = this.props;
         const filled = rating >= starValue;
         return (
             <button 
                 key={starValue}
                 type="button"
-                title={`${starValue} Star`}
-                className={`rating-star ${filled ? 'filled' : 'empty'}`}
-                onClick={() => onRatingChange(rating === starValue ? 0 : starValue)}
+                title={starValue + " Star"}
+                className={"rating-star " + (filled ? 'filled' : 'empty')}
+                onClick={function() { onRatingChange(rating === starValue ? 0 : starValue); }}
             >
                 {filled ? '★' : '☆'}
             </button>
         );
-    };
+    }
     
-    return (
-        <div className="star-rating">
-            {[1, 2, 3, 4, 5].map(renderStar)}
-        </div>
-    );
+    render() {
+        return (
+            <div className="star-rating">
+                {[1, 2, 3, 4, 5].map(this.renderStar)}
+            </div>
+        );
+    }
 }
+
+export default StarRating;

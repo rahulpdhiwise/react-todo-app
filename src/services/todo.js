@@ -24,13 +24,16 @@ export function getAll() {
             completed: false,
             rating: 0
         }
-    ]
+    ];
 }
 
-export function getItemById(itemId) {
-    return getAll().find(item => item.id === itemId);
-}
-
+/**
+ * Updates the status of a todo item.
+ * @param {Array} items - The list of todo items.
+ * @param {Number} itemId - The ID of the todo item to update.
+ * @param {Boolean} completed - The new completed status.
+ * @return {Array} The updated list of todo items.
+ */
 export function updateStatus(items, itemId, completed) {
     let index = items.findIndex(item => item.id === itemId);
 
@@ -42,6 +45,13 @@ export function updateStatus(items, itemId, completed) {
     });
 }
 
+/**
+ * Updates the rating of a todo item.
+ * @param {Array} items - The list of todo items.
+ * @param {Number} itemId - The ID of the todo item to update.
+ * @param {Number} rating - The new rating value (0-5).
+ * @return {Array} The updated list of todo items.
+ */
 export function updateRating(items, itemId, rating) {
     let index = items.findIndex(item => item.id === itemId);
 
@@ -54,22 +64,10 @@ export function updateRating(items, itemId, rating) {
 }
 
 /**
- * A counter to generate a unique id for a todo item.
- * Can remove this logic when the todo is created using backend/database logic.
- * @type {Number}
- */
-let todoCounter = 1;
-
-function getNextId() {
-    return getAll().length + todoCounter++;
-}
-
-/**
- * Adds a new item on the list and returns the new updated list (immutable).
- *
- * @param {Array} list
- * @param {Object} data
- * @return {Array}
+ * Adds a new todo item to the list.
+ * @param {Array} list - The list of todo items.
+ * @param {Object} data - The todo item to add.
+ * @return {Array} The updated list of todo items.
  */
 export function addToList(list, data) {
     let item = Object.assign({
@@ -78,4 +76,13 @@ export function addToList(list, data) {
     }, data);
 
     return list.concat([item]);
+}
+
+/**
+ * Generates the next todo item ID.
+ * @param {Array} items - The list of todo items.
+ * @return {Number} The next todo item ID.
+ */
+function getNextId() {
+    return Math.floor(Math.random() * 100000);
 }
