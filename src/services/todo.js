@@ -10,19 +10,19 @@ export function getAll() {
             id: 1,
             text: 'Learn Javascript',
             completed: false,
-            rating: null
+            rating: 0
         },
         {
             id: 2,
             text: 'Learn React',
             completed: false,
-            rating: null
+            rating: 0
         },
         {
             id: 3,
             text: 'Build a React App',
             completed: false,
-            rating: null
+            rating: 0
         }
     ]
 }
@@ -74,7 +74,7 @@ function getNextId() {
 export function addToList(list, data) {
     let item = Object.assign({
         id: getNextId(),
-        rating: null
+        rating: 0
     }, data);
 
     return list.concat([item]);

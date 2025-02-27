@@ -137,31 +137,35 @@ footer .buttons {
     flex: 1;
 }
 
-.rating-buttons {
+.rating-container {
     display: flex;
     margin-left: 10px;
 }
 
-.rating-button {
+.star-rating {
+    display: flex;
+}
+
+.rating-star {
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
     opacity: 0.5;
     transition: 0.3s all;
-    margin: 0 5px;
+    margin: 0 2px;
     border: none;
     background-color: transparent;
     padding: 0;
-    font-size: 16px;
+    font-size: 18px;
 }
 
-.rating-button:hover, .rating-button.selected {
+.rating-star:hover {
     opacity: 1;
 }
 
-.rating-button.selected {
-    font-weight: bold;
+.rating-star.filled {
+    opacity: 1;
+    color: #FFD700;
     transform: scale(1.2);
-    color: #0275d8;
 }
