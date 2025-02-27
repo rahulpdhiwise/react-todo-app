@@ -45,7 +45,7 @@ class App extends Component {
         return (
             <div className="container">
                 {authenticated ? (
-                    <>
+                    <div className="app-authenticated">
                         <div className="logout-container">
                             <button onClick={this.handleLogout} className="logout-button">
                                 Logout
@@ -56,7 +56,7 @@ class App extends Component {
                                 <TodoList />
                             </KeyStrokeHandler>
                         </StateProvider>
-                    </>
+                    </div>
                 ) : (
                     <Auth onAuthSuccess={this.handleAuthSuccess} />
                 )}
