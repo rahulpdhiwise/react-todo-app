@@ -9,17 +9,20 @@ export function getAll() {
         {
             id: 1,
             text: 'Learn Javascript',
-            completed: false
+            completed: false,
+            rating: null
         },
         {
             id: 2,
             text: 'Learn React',
-            completed: false
+            completed: false,
+            rating: null
         },
         {
             id: 3,
             text: 'Build a React App',
-            completed: false
+            completed: false,
+            rating: null
         }
     ]
 }
@@ -35,6 +38,17 @@ export function updateStatus(items, itemId, completed) {
     return update(items, {
         [index]: {
             completed: {$set: completed}
+        }
+    });
+}
+
+export function updateRating(items, itemId, rating) {
+    let index = items.findIndex(item => item.id === itemId);
+
+    // Returns a new list of data with updated item.
+    return update(items, {
+        [index]: {
+            rating: {$set: rating}
         }
     });
 }
@@ -59,7 +73,8 @@ function getNextId() {
  */
 export function addToList(list, data) {
     let item = Object.assign({
-        id: getNextId()
+        id: getNextId(),
+        rating: null
     }, data);
 
     return list.concat([item]);

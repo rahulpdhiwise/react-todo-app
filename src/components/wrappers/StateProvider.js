@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {FILTER_ALL} from '../../services/filter';
 import {MODE_CREATE, MODE_NONE} from '../../services/mode';
 import {objectWithOnly, wrapChildrenWith} from '../../util/common';
-import {getAll, addToList, updateStatus} from '../../services/todo';
+import {getAll, addToList, updateStatus, updateRating} from '../../services/todo';
 
 class StateProvider extends Component {
     constructor() {
@@ -18,7 +18,7 @@ class StateProvider extends Component {
     render() {
         let children = wrapChildrenWith(this.props.children, {
             data: this.state,
-            actions: objectWithOnly(this, ['addNew', 'changeFilter', 'changeStatus', 'changeMode', 'setSearchQuery'])
+            actions: objectWithOnly(this, ['addNew', 'changeFilter', 'changeStatus', 'changeMode', 'setSearchQuery', 'changeRating'])
         });
 
         return <div>{children}</div>;
@@ -46,6 +46,12 @@ class StateProvider extends Component {
 
     setSearchQuery(text) {
         this.setState({query: text || ''});
+    }
+
+    changeRating(itemId, rating) {
+        const updatedList = updateRating(this.state.list, itemId, rating);
+
+        this.setState({list: updatedList});
     }
 }
 
