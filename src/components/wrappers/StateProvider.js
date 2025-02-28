@@ -3,6 +3,7 @@ import {FILTER_ALL} from '../../services/filter';
 import {MODE_CREATE, MODE_NONE} from '../../services/mode';
 import {objectWithOnly, wrapChildrenWith} from '../../util/common';
 import {getAll, addToList, updateStatus} from '../../services/todo';
+import {authenticate, getAuthFromStorage, setAuthInStorage, clearAuthFromStorage, AUTH_LOGGED_IN} from '../../services/auth';
 
 class StateProvider extends Component {
     constructor() {
@@ -11,14 +12,15 @@ class StateProvider extends Component {
             query: '',
             mode: MODE_CREATE,
             filter: FILTER_ALL,
-            list: getAll()
+            list: getAll(),
+            auth: getAuthFromStorage()
         }
     }
 
     render() {
         let children = wrapChildrenWith(this.props.children, {
             data: this.state,
-            actions: objectWithOnly(this, ['addNew', 'changeFilter', 'changeStatus', 'changeMode', 'setSearchQuery'])
+            actions: objectWithOnly(this, ['addNew', 'changeFilter', 'changeStatus', 'changeMode', 'setSearchQuery', 'login', 'logout'])
         });
 
         return <div>{children}</div>;
@@ -46,6 +48,18 @@ class StateProvider extends Component {
 
     setSearchQuery(text) {
         this.setState({query: text || ''});
+    }
+    
+    login(username, password) {
+        const auth = authenticate(username, password);
+        if (auth.status === AUTH_LOGGED_IN) {
+            this.setState({ auth: setAuthInStorage(auth) });
+        }
+        return auth;
+    }
+    
+    logout() {
+        this.setState({ auth: clearAuthFromStorage() });
     }
 }
 
